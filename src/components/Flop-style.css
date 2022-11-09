@@ -1,0 +1,26 @@
+
+.Flop-style {
+    border: 1px solid red;
+    width: 600px;
+    height: 120px;
+    justify-content: center;
+    align-items: center;
+}
+
+.Flop {
+    border: 1px solid red;
+    width: 50px;
+    height: 70px;
+}
+
+.Turn {
+    border: 1px solid red;
+    width: 50px;
+    height: 70px;
+}
+
+.River {
+    border: 1px solid red;
+    width: 50px;
+    height: 70px;
+}

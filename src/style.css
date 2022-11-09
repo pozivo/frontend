@@ -25,7 +25,7 @@ samp {
 }
 
 .br {
-  border: 1px solid red;
+  border: 3px solid red;
 }
 
 .card-player {
@@ -52,4 +52,38 @@ samp {
   width: 25px;
   height: 25px;
   font-size: 12px;
+}
+.img-card{
+  display: flex;
+  width: 50px;
+}
+
+.table {
+  width: 100%;
+  height: 100%;
+  background-color: chartreuse;
+}
+
+.button-style {
+  
+}
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.player-left {
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-right {
+  /* border: 1px solid blue; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
