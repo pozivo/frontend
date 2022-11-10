@@ -1,7 +1,10 @@
 
 import { useState } from 'react';
 import './App.css';
+import Button from './components/Button';
 import Card from './components/Card';
+import Flop from './components/Flop';
+import Player from './components/Player';
 import Table from './components/Table';
 
 const MAZZO = [];
@@ -16,13 +19,16 @@ cardsStringArray.forEach(card => {
   MAZZO.push({
     suit: card.slice(-1),
     number: parseInt(card, 10),
-    holder: "deck"
+    holder: "deck",
+    flipped: true
   })
 });
 
 function App() {
 
   const [players, setPlayers] = useState(["player1", "player2", "player3", "player4"]);
+  const [FLOP, setFLOP] = useState(["burn", "Flop1", "Flop2", "Flop3"]);
+
 
   const shuffle = (e) => {
     e.preventDefault();
@@ -35,11 +41,19 @@ function App() {
       mazzo[j] = tmp;
     }
 
-    players.forEach((player, index) => {
-      mazzo[index].holder = player;
-      mazzo[index + players.length].holder = player;
-    })
+    const getCard = (mazzo) => mazzo.find(card => card.holder == "deck");
 
+    players.forEach((player) => {
+      const freeCard = getCard(mazzo);
+      freeCard.holder = player;
+    });
+    players.forEach((player) => {
+      const freeCard = getCard(mazzo);
+      freeCard.holder = player;
+    });
+
+    
+    console.log(getCard(mazzo));
 
 
 
@@ -53,39 +67,33 @@ function App() {
 
   return (
     <div className='d-flex justify-content-center align-items-center flex-column'>
-      <Table />
-      <div className='d-flex justify-content-center py-3'>
-        <a className="nes-btn m-3" onClick={shuffle}>Shuffle</a>
-        <a className="nes-btn is-success m-3" href="#">Nascondi</a>
-        <a className="nes-btn is-warning m-3">Mostra</a>
+
+      <div className='flop-table mt-5'>
+        <Flop />
       </div>
-      <div className='log-mazzo'>
-        <h5>Player1</h5>
-        {deck.filter(card => card.holder === "player1").map((card) => {
-          return <Card number={card.number} suit={card.suit} />;
-        })}
+
+      <div className='player-box mt-3 gap-3'>
+        <Player name="Player 1" cards={deck.filter(card => card.holder === "player1")} />
+        <Player name="Player 2" cards={deck.filter(card => card.holder === "player2")} />
+        <Player name="Player 3" cards={deck.filter(card => card.holder === "player3")} />
+        <Player name="Player 4" cards={deck.filter(card => card.holder === "player4")} />
       </div>
-      <div className='log-mazzo'>
-        <h5>Player2</h5>
-        {deck.filter(card => card.holder === "player2").map((card) => {
-          return <Card number={card.number} suit={card.suit} />;
-        })}
+
+      <div className='button-action p-3 mt-2'>
+        <button type="button" className="nes-btn btn-p is-success">Bet</button>
+        <button type="button" className="nes-btn btn-p is-primary">Check</button>
+        <button type="button" className="nes-btn btn-p is-error">Fold</button>
       </div>
-      <div className='log-mazzo'>
-        <h5>Player3</h5>
-        {deck.filter(card => card.holder === "player3").map((card) => {
-          return <Card number={card.number} suit={card.suit} />;
-        })}
+
+      <div className='d-flex justify-content-center py-3 mt-3 gap-2'>
+        <Button onClick={shuffle} label="Shuffle" />
+        <Button label="FLOP" />
+        <Button label="Turn" />
+        <Button label="River" />
       </div>
-      <div className='log-mazzo'>
-        <h5>Player4</h5>
-        {deck.filter(card => card.holder === "player4").map((card) => {
-          return <Card number={card.number} suit={card.suit} />;
-        })}
-      </div>
-      <div className='log-mazzo'>
+      <div className='log-mazzo py-5 gap-2'>
         {deck.map((card) => {
-          return <Card number={card.number} suit={card.suit} />;
+          return <Card number={card.number} suit={card.suit} flipped={card.flipped} />;
         })}
       </div>
     </div>
@@ -94,3 +102,4 @@ function App() {
 
 export default App;
 
+// {deck.filter(card => card.holder === "FLOP1") && deck.filter(card => card.holder === "FLOP2") && deck.filter(card => card.holder === "FLOP3")}

@@ -1,4 +1,5 @@
 import React from 'react'
+import './Card.css'
 
 const cardImg = {
     "1C": "image/simple_c_a.svg",
@@ -54,18 +55,22 @@ const cardImg = {
     "12S": "image/simple_s_q.svg",
     "13S": "image/simple_s_k.svg"
 }
-console.log(cardImg);
 
-const Card = ({ number, suit }) => {
+const cardImgBack = "image/back.svg"
+
+const Card = ({ number, suit, flipped }) => {
+
 
     return (
 
         <div>
-            <img className='img-card' src={cardImg[number+suit]} alt="" />
-            <span className=" mazzo nes-text is-primary m-1"> {number}{suit} </span>
+            {flipped ? <img className='img-card' src={cardImgBack} alt="" /> : <img className='img-card' src={cardImg[number + suit]} alt="" /> }
+            
         </div>
 
     )
 }
 
 export default Card
+
+// <span className=" mazzo nes-text is-primary m-1"> {number}{suit} </span>

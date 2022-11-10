@@ -3,7 +3,7 @@ import Button from './Button'
 import Flop from './Flop'
 import Player from './Player'
 
-const Table = () => {
+const Table = ( {deck} ) => {
     return (
         <div className="container table">
             <div className="row align-items-start p-3">
@@ -46,9 +46,7 @@ const Table = () => {
                 <div className="col d-flex flex-row gap-5">
                     <Player>
                     </Player>
-                    <Player>
-                        <h4>AAAAA</h4>
-                    </Player>
+                    <Player />
                     <Player>
                     </Player>
 

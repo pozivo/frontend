@@ -20,6 +20,7 @@ pre,
 code,
 kbd,
 samp {
+  background-color: rgb(104, 209, 0);
   font-family: 'Space Mono', monospace;
   font-weight: bold;
 }
@@ -42,7 +43,7 @@ samp {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  max-width: 330px;
+  max-width: 1200px;
 }
 
 .mazzo {
@@ -52,10 +53,6 @@ samp {
   width: 25px;
   height: 25px;
   font-size: 12px;
-}
-.img-card{
-  display: flex;
-  width: 50px;
 }
 
 .table {
@@ -74,6 +71,13 @@ samp {
 
 }
 
+.player-box {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .player-left {
   /* border: 1px solid blue; */
   display: flex;
@@ -86,4 +90,26 @@ samp {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.nes-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    width: 80px;
+}
+
+.button-action {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 380px;
+    gap: 5px;
+}
+
+.flop-table {
+  background-color: rgb(104, 209, 0);
 }

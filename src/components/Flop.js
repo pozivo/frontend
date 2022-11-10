@@ -1,14 +1,30 @@
 import React from 'react'
 import './Flop-style.css'
+import Card from './Card';
 
-const Flop = () => {
+const Flop = ({ cards }) => {
     return (
-        <div className='Flop-style d-flex flex-row gap-2'>
-            <div className='Flop'>1</div>
-            <div className='Flop'>2</div>
-            <div className='Flop'>3</div>
-            <div className='Turn'>4</div>
-            <div className='River'>5</div>
+        <div className='flop-style gap-2'>
+            <div className='flop'>
+                {cards && cards.map((card) => {
+                    return <Card number={card.number} suit={card.suit} />;
+                })
+                }
+            </div>
+            <div className='flop'>
+                {cards && cards.map((card) => {
+                    return <Card number={card.number} suit={card.suit} />;
+                })
+                }
+            </div>
+            <div className='flop'>
+                {cards && cards.map((card) => {
+                    return <Card number={card.number} suit={card.suit} />;
+                })
+                }
+            </div>
+            <div className='turn'></div>
+            <div className='river'></div>
         </div>
     )
 }
