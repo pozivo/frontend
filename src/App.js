@@ -1,11 +1,13 @@
 
 import { useState } from 'react';
 import './App.css';
-import Button from './components/Button';
+// import Button from './components/Button';
 import Card from './components/Card';
 import Flop from './components/Flop';
 import Player from './components/Player';
+import River from './components/River';
 import Table from './components/Table';
+import Turn from './components/Turn';
 
 const MAZZO = [];
 const cardsStringArray = [
@@ -27,7 +29,7 @@ cardsStringArray.forEach(card => {
 function App() {
 
   const [players, setPlayers] = useState(["player1", "player2", "player3", "player4"]);
-  const [FLOP, setFLOP] = useState(["burn", "Flop1", "Flop2", "Flop3"]);
+  // const [FLOP, setFLOP] = useState(["Flop"]);
 
 
   const shuffle = (e) => {
@@ -52,24 +54,55 @@ function App() {
       freeCard.holder = player;
     });
 
-    
-    console.log(getCard(mazzo));
+    const getFlop = (mazzo) => {
+      const freeCards = mazzo.filter(cards => cards.holder == "deck");
+      const flopCards = freeCards.slice(1, 4);
+      flopCards.forEach((card) => {
+        card.holder = "FLOP";
+      });
+      freeCards.find(card => card.holder = "BURN");
+    };
 
+    const getTurn = (mazzo) => {
+      const freeCards = mazzo.filter(cards => cards.holder == "deck");
+      const turnCards = freeCards.slice(0, 2);
+      turnCards.forEach((card) => {
+        card.holder = "TURN";
+      });
+      freeCards.find(card => card.holder = "BURN");
+    };
+
+    const getRiver = (mazzo) => {
+      const freeCards = mazzo.filter(cards => cards.holder == "deck");
+      const riverCards = freeCards.slice(0, 2);
+      riverCards.forEach((card) => {
+        card.holder = "RIVER";
+      });
+      freeCards.find(card => card.holder = "BURN");
+    };
 
 
     setDeck(mazzo.map(el => el));
 
+    getFlop(mazzo);
+    getTurn(mazzo);
+    getRiver(mazzo);
+    console.log(getCard(mazzo));
+    
   };
 
 
   const [deck, setDeck] = useState([]);
-
+  console.log(deck);
+  
 
   return (
     <div className='d-flex justify-content-center align-items-center flex-column'>
 
       <div className='flop-table mt-5'>
-        <Flop />
+        <Flop name="Flop" cards={deck.filter(card => card.holder === "FLOP")} />
+        <Turn name="Turn" cards={deck.filter(card => card.holder === "TURN")} />
+        <River name="River" cards={deck.filter(card => card.holder === "RIVER")} />
       </div>
 
       <div className='player-box mt-3 gap-3'>
@@ -86,10 +119,10 @@ function App() {
       </div>
 
       <div className='d-flex justify-content-center py-3 mt-3 gap-2'>
-        <Button onClick={shuffle} label="Shuffle" />
-        <Button label="FLOP" />
-        <Button label="Turn" />
-        <Button label="River" />
+        <button type="button" class="nes-btn is-success" onClick={shuffle} >Shuffle</button>
+        <button type="button" class="nes-btn is-warning" >FLOP</button>
+        <button class="nes-btn is-warning">TURN</button>
+        <button class="nes-btn is-warning">RIVER</button>
       </div>
       <div className='log-mazzo py-5 gap-2'>
         {deck.map((card) => {
