@@ -22,7 +22,7 @@ cardsStringArray.forEach(card => {
     suit: card.slice(-1),
     number: parseInt(card, 10),
     holder: "deck",
-    flipped: true
+    flipped: false
   })
 });
 
