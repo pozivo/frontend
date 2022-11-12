@@ -1,7 +1,7 @@
 import React from 'react'
 import './Flop-style.css'
 import Card from './Card';
-import Turn from './Turn';
+
 
 const Flop = ({ cards }) => {
     return (

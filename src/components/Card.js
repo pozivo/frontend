@@ -53,7 +53,7 @@ const cardImg = {
     "10S": "image/10s.png",
     "11S": "image/Js.png",
     "12S": "image/Qs.png",
-    "13S": "image/Ks.png"
+    "13S": "public/image/Ks.png"
 }
 
 const cardImgBack = "image/back_black.png"
@@ -64,8 +64,8 @@ const Card = ({ number, suit, flipped }) => {
     return (
 
         <div>
-            {flipped ? <img className='img-card' src={cardImgBack} alt="" /> : <img className='img-card' src={cardImg[number + suit]} alt="" /> }
-            
+            {flipped ? <img className='img-card' src={cardImgBack} alt="" /> : <img className='img-card' src={cardImg[number + suit]} alt="" />}
+
         </div>
 
     )

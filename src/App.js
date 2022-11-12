@@ -6,8 +6,12 @@ import Card from './components/Card';
 import Flop from './components/Flop';
 import Player from './components/Player';
 import River from './components/River';
-import Table from './components/Table';
 import Turn from './components/Turn';
+
+
+
+
+
 
 const MAZZO = [];
 const cardsStringArray = [
@@ -22,7 +26,7 @@ cardsStringArray.forEach(card => {
     suit: card.slice(-1),
     number: parseInt(card, 10),
     holder: "deck",
-    flipped: false
+    flipped: true
   })
 });
 
@@ -30,6 +34,7 @@ function App() {
 
   const [players, setPlayers] = useState(["player1", "player2", "player3", "player4"]);
   // const [FLOP, setFLOP] = useState(["Flop"]);
+
 
 
   const shuffle = (e) => {
