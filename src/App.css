@@ -37,3 +37,18 @@
   }
 }
 
+/* --- App.js --- */
+
+.Player-box {
+  /* border: 1px solid blue; */
+  display: flex;
+  margin-top: 10px;
+}
+
+.winner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  color: crimson;
+}

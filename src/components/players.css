@@ -1,0 +1,39 @@
+.player-box {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cards-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-box {
+    margin-top: 5px;
+}
+
+.info-box > h5 {
+    font-weight: 700;
+}
+
+.info-box-stake {
+    display: flex;
+    flex-direction: column;
+    margin-top: -5px;
+}
+
+.info-box-stake > h6 {
+    color: red;
+    font-size: small;
+    font-weight: 600;
+}
+
+.info-box-stake > p {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: -10px;
+}

@@ -1,15 +1,10 @@
-
 import { useState } from 'react';
 import './App.css';
-// import Button from './components/Button';
 import Card from './components/Card';
-import Flop from './components/Flop';
-import Player from './components/Player';
-import River from './components/River';
-import Turn from './components/Turn';
+import Players from './components/Players';
 
 const { Table } = require("@queval_j/poker-engine");
-var Hand = require('pokersolver').Hand;
+
 
 const table = new Table();
 
@@ -18,172 +13,97 @@ table.sitDown("Player 2", 1000);
 table.sitDown("Player 3", 1000);
 
 table.dealCards();
-
-// player 1 (dealer) is first to act.
-// Player 2 and 3 posted blinds.
 table.currentActor.callAction();
 
-// player 2 is first to act on the flop.
+
+table.currentActor.callAction();
 table.currentActor.checkAction();
 
-// player 3 decides to open the bet on the flop.
+// flop.
+table.currentActor.checkAction();
 table.currentActor.betAction(20);
+table.currentActor.callAction();
+table.currentActor.callAction();
 
-// player 1 raises.
-table.currentActor.raise(40);
-
-// player 2 calls.
-table.currentActor.call();
-
-// player 3 calls player 1's raise.
-table.currentActor.call();
-
-// betting has been met, player 2 is first to act on the turn and all three decide to check.
-table.currentActor.checkAction();
-table.currentActor.checkAction();
-table.currentActor.checkAction();
-
-// player 2 is first to act on the river and decides
-// to open the bet at $40.
+// turn.
 table.currentActor.betAction(40);
-
-// player 3 raises to $60.
-table.currentActor.raiseAction(60);
-
-// player 1 folds.
+table.currentActor.raiseAction(70);
 table.currentActor.foldAction();
+table.currentActor.callAction();
 
-// Declare winner(s)!
+// river.
+table.currentActor.checkAction();
+table.currentActor.checkAction();
 
-console.log(table.winners);
+
+
+// Find all player hole cards.
+// table.players.forEach(player => console.log(player?.holeCards));
+
+// console.log(table.players[0].holeCards[0]._rank);
 
 
 
-const MAZZO = [];
-const cardsStringArray = [
-  "1C", "2C", "3C", "4C", "5C", "6C", "7C", "8C", "9C", "10C", "11C", "12C", "13C",
-  "1D", "2D", "3D", "4D", "5D", "6D", "7D", "8D", "9D", "10D", "11D", "12D", "13D",
-  "1H", "2H", "3H", "4H", "5H", "6H", "7H", "8H", "9H", "10H", "11H", "12H", "13H",
-  "1S", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "11S", "12S", "13S"
-];
 
-cardsStringArray.forEach(card => {
-  MAZZO.push({
-    suit: card.slice(-1),
-    number: parseInt(card, 10),
-    holder: "deck",
-    flipped: true
-  })
-});
+
+
+
+
+
 
 function App() {
 
-  const [players, setPlayers] = useState(["player1", "player2", "player3", "player4"]);
-  // const [FLOP, setFLOP] = useState(["Flop"]);
+
+
+  const [players, setPlayers] = useState(table.players.filter((el) => el));
+  console.log(players);
+
+  const [communityCards, setCommunityCards] = useState(table.communityCards);
+  console.log(table);
+
+  const [winner, setWinner] = useState(table.winners);
+  console.log(table.winners);
+
+
+  // Find all players.
 
 
 
-  const shuffle = (e) => {
-    e.preventDefault();
-    const mazzo = JSON.parse(JSON.stringify(MAZZO))
-    const numberOfCards = mazzo.length;
-    for (var i = 0; i < numberOfCards; i++) {
-      let j = Math.floor(Math.random() * numberOfCards);
-      let tmp = mazzo[i];
-      mazzo[i] = mazzo[j];
-      mazzo[j] = tmp;
-    }
 
-    const getCard = (mazzo) => mazzo.find(card => card.holder == "deck");
-
-    players.forEach((player) => {
-      const freeCard = getCard(mazzo);
-      freeCard.holder = player;
-    });
-    players.forEach((player) => {
-      const freeCard = getCard(mazzo);
-      freeCard.holder = player;
-    });
-
-    const getFlop = (mazzo) => {
-      const freeCards = mazzo.filter(cards => cards.holder == "deck");
-      const flopCards = freeCards.slice(1, 4);
-      flopCards.forEach((card) => {
-        card.holder = "FLOP";
-      });
-      freeCards.find(card => card.holder = "BURN");
-    };
-
-    const getTurn = (mazzo) => {
-      const freeCards = mazzo.filter(cards => cards.holder == "deck");
-      const turnCards = freeCards.slice(0, 2);
-      turnCards.forEach((card) => {
-        card.holder = "TURN";
-      });
-      freeCards.find(card => card.holder = "BURN");
-    };
-
-    const getRiver = (mazzo) => {
-      const freeCards = mazzo.filter(cards => cards.holder == "deck");
-      const riverCards = freeCards.slice(0, 2);
-      riverCards.forEach((card) => {
-        card.holder = "RIVER";
-      });
-      freeCards.find(card => card.holder = "BURN");
-    };
-
-
-    setDeck(mazzo.map(el => el));
-
-    getFlop(mazzo);
-    getTurn(mazzo);
-    getRiver(mazzo);
-    console.log(getCard(mazzo));
-    
-  };
-
-
-  const [deck, setDeck] = useState([]);
-  console.log(deck);
-  
 
   return (
     <div className='d-flex justify-content-center align-items-center flex-column'>
-
-      <div className='flop-table mt-5'>
-        <Flop name="Flop" cards={deck.filter(card => card.holder === "FLOP")} />
-        <Turn name="Turn" cards={deck.filter(card => card.holder === "TURN")} />
-        <River name="River" cards={deck.filter(card => card.holder === "RIVER")} />
+      <div className='d-flex justify-content-center align-items-center mt-5 mb-5'>
+        {communityCards && communityCards.map((card) => {
+          return <Card number={card._rank} suit={card._suit} />;
+        })
+        }        
       </div>
-
-      <div className='player-box mt-3 gap-3'>
-        <Player name="Player 1" cards={deck.filter(card => card.holder === "player1")} />
-        <Player name="Player 2" cards={deck.filter(card => card.holder === "player2")} />
-        <Player name="Player 3" cards={deck.filter(card => card.holder === "player3")} />
-        <Player name="Player 4" cards={deck.filter(card => card.holder === "player4")} />
+      <div className='winner d-flex'>
+        <h6>Winner: {winner.map((el) => {
+          return el.id;
+        })}
+        </h6>
       </div>
-
+      <div className="Player-box gap-3">
+        {players.map((el) => {
+          return <Players 
+          id={el.id} 
+          stake={el.stackSize} 
+          cards={el.holeCards} 
+          showCards={el.showCards} 
+          hand={el.hand} />;
+        })}
+      </div>
       <div className='button-action p-3 mt-2'>
         <button type="button" className="nes-btn btn-p is-success">Bet</button>
         <button type="button" className="nes-btn btn-p is-primary">Check</button>
         <button type="button" className="nes-btn btn-p is-error">Fold</button>
       </div>
 
-      <div className='d-flex justify-content-center py-3 mt-3 gap-2'>
-        <button type="button" class="nes-btn is-success" onClick={shuffle} >Shuffle</button>
-        <button type="button" class="nes-btn is-warning" >FLOP</button>
-        <button class="nes-btn is-warning">TURN</button>
-        <button class="nes-btn is-warning">RIVER</button>
-      </div>
-      <div className='log-mazzo py-5 gap-2'>
-        {deck.map((card) => {
-          return <Card number={card.number} suit={card.suit} flipped={card.flipped} />;
-        })}
-      </div>
     </div>
   );
 }
 
 export default App;
 
-// {deck.filter(card => card.holder === "FLOP1") && deck.filter(card => card.holder === "FLOP2") && deck.filter(card => card.holder === "FLOP3")}
